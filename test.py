@@ -1,6 +1,11 @@
 from time import time
 from ocp_tessellate.ocp_utils import deserialize
+
+import sys
+sys.path.append("build")
+
 import ocp_tessellate_native as tess
+
 
 def decompose(array, indexes, flatten=False):
     result =[]
@@ -35,8 +40,8 @@ def tessellate(obj, deflection, angular_tolerance, parallel):
         "obj_vertices": m.obj_vertices
     }
 
-# file, acc, show = "b.brep", 0.002, True
-file, acc, show = "rc.brep", 0.19, False
+# file, acc, show = "examples/b.brep", 0.002, True
+file, acc, show = "examples/rc.brep", 0.19, False
 
 with open(file, "rb") as f:
     obj = deserialize(f.read())
