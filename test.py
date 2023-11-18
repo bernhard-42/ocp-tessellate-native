@@ -40,8 +40,8 @@ def tessellate(obj, deflection, angular_tolerance, parallel):
         "obj_vertices": m.obj_vertices
     }
 
-# file, acc, show = "examples/b.brep", 0.002, True
-file, acc, show = "examples/rc.brep", 0.19, False
+file, acc, show = "examples/b123.brep", 0.002, True
+# file, acc, show = "examples/rc.brep", 0.19, False
 
 with open(file, "rb") as f:
     obj = deserialize(f.read())
