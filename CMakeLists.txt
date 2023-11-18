@@ -9,18 +9,18 @@ cmake_policy(SET CMP0094 NEW)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 
 include_directories(OCCT/build/include/opencascade/)
-link_directories(OCCT/build/mac64/clang/lib/)
-
-# Find pybind11 package
-set(pybind11_DIR $ENV{CONDA_PREFIX}/lib/python3.10/site-packages/pybind11/share/cmake/pybind11)
-find_package(pybind11 REQUIRED)
+link_directories(OCCT/build/lib/)
 
 # Find Python
 set(Python_EXECUTABLE $ENV{CONDA_PREFIX}/bin/python3)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
+# Find pybind11 package
+set(pybind11_DIR $ENV{CONDA_PREFIX}/lib/python3.10/site-packages/pybind11/share/cmake/pybind11)
+find_package(pybind11 REQUIRED)
+
 # Add the pybind11 module
 pybind11_add_module(ocp_tessellate_native src/tessellate.cpp)
 
 # Link against the Python libraries
-target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module libTKG3d.dylib libTKTopAlgo.dylib libTKMesh.dylib)
+target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module -lTKG3d -lTKTopAlgo -lTKMesh)
