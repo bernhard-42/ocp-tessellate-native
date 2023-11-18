@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <chrono>
 
 #include <BRep_Builder.hxx>
 #include <BRepTools.hxx>
@@ -28,9 +29,9 @@ auto get_timer() {
     return std::chrono::high_resolution_clock::now();
 }
 
-void stop_timer(std::chrono::time_point<std::chrono::steady_clock> start, std::string message) {
+void stop_timer(std::chrono::time_point<std::chrono::system_clock> start, std::string message) {
     auto done = get_timer();
-    std::cout << message << " " << std::chrono::duration_cast<std::chrono::milliseconds>(done-start).count() << " ms" << std::endl;
+    std::cout << message << " " << std::chrono::duration_cast<std::chrono::milliseconds>(done - start).count() << " ms" << std::endl;
 }
 
 void log(std::string message) {
