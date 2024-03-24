@@ -15,8 +15,8 @@ link_directories(OCCT/build/lib/)
 set(Python_EXECUTABLE $ENV{CONDA_PREFIX}/bin/python3)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
-# Find pybind11 package
-set(pybind11_DIR $ENV{CONDA_PREFIX}/lib/python3.10/site-packages/pybind11/share/cmake/pybind11)
+# Find pybind11 package - be sure SITE is set to CONDA_PREFIX/.../site-packages
+set(pybind11_DIR $ENV{SITE}/pybind11/share/cmake/pybind11)
 find_package(pybind11 REQUIRED)
 
 # Add the pybind11 module
