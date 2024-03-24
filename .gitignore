@@ -1,7 +1,2 @@
 .DS_Store
-build/CMakeFiles
-build/Makefile
-build/cmake_install.cmake
-build/tess.cpython-310-darwin.so
-build/ocp_tessellate_native.cpython-310-darwin.so
-build/CMakeCache.txt
+build
