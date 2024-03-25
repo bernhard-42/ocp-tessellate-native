@@ -1,5 +1,13 @@
 # Building ocp-addons
 
+## Create an Python
+
+```bash
+mamba env create -f env.yml
+mamba activate ocp-addons
+```
+
+
 ## Clone the repository
 
 ```bash
@@ -15,24 +23,22 @@ git submodule update --init --recursive
 mkdir -p build
 cd build/
 $CONDA_PREFIX/bin/cmake ..
-make -j 8  # <== change to number of CPU cores available
-ln -s mac64/clang/lib  # <= MacOS
-ln -s lin64/gcc/lib    # <= Linux
+# make -j 8  # <== change to number of CPU cores available
+# ln -s mac64/clang/lib  # <= MacOS
+# ln -s lin64/gcc/lib    # <= Linux
 ```
 
 ## Build opc-addons
 
 ```bash
-mamba env create -f env.yml
-mamba activate ocp-addons
-
 cd ../..
 mkdir -p build
 cd build/
 
 export SITE=$(python -c "import site; print(site.getsitepackages()[0])")
+export OCCT_LIBS=$SITE/vtkmodules/.dylibs  # <= MacOS
 $CONDA_PREFIX/bin/cmake ..
-
+make 
 ls -l ocp_tessellate*
 ```
 
