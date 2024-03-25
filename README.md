@@ -7,7 +7,6 @@ mamba env create -f env.yml
 mamba activate ocp-addons
 ```
 
-
 ## Clone the repository
 
 ```bash
@@ -15,17 +14,17 @@ git clone https://github.com/bernhard-42/ocp-tessellate-native.git
 cd ocp-tessellate-native
 ```
 
-## Clone and build OCCT
+## Clone and create include files
 
 ```bash
 cd OCCT
 git submodule update --init --recursive
 mkdir -p build
 cd build/
-$CONDA_PREFIX/bin/cmake ..
+$CONDA_PREFIX/bin/cmake ..  # creates build/include
 ```
 
-## Build opc-addons
+## Build ocp-addons
 
 ```bash
 cd ../..
