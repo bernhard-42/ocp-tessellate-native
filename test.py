@@ -1,8 +1,10 @@
+import json
 import io
 import os
 import sys
 import tempfile
 from time import time
+from build123d import *
 
 from OCP.BinTools import BinTools
 from OCP.TopoDS import TopoDS_Shape
@@ -64,18 +66,22 @@ def tessellate(obj, deflection, angular_tolerance, parallel):
     }
 
 
-file, acc, show = "examples/b123.brep", 0.002, True
-# file, acc, show = "examples/rc.brep", 0.19, False
+brep = False
 
-with open(file, "rb") as f:
-    obj = deserialize(f.read())
+if brep:
+    # file, acc, show = "examples/b123.brep", 0.002, True
+    file, acc, show = "examples/rc.brep", 0.19, False
+
+    with open(file, "rb") as f:
+        obj = deserialize(f.read())
+else:
+    obj, acc, show = Box(1, 2, 3).wrapped, 0.002, True
 
 tt = time()
 
 
 mesh = tessellate(obj, acc, 0.3, parallel=True)
 
-import json
 
 if show:
     print("vertices:", mesh["vertices"])
@@ -90,4 +96,4 @@ if show:
         print("  ", json.dumps(e.tolist()))
     print("obj_vertices:", mesh["obj_vertices"])
 
-# print("overall:", int(1000*(time() - tt)), "ms")
+print("overall:", int(1000 * (time() - tt)), "ms")
