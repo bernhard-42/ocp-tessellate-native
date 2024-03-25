@@ -36,7 +36,6 @@ mkdir -p build
 cd build/
 
 export SITE=$(python -c "import site; print(site.getsitepackages()[0])")
-export OCCT_LIBS=$SITE/vtkmodules/.dylibs  # <= MacOS
 $CONDA_PREFIX/bin/cmake ..
 make 
 ls -l ocp_tessellate*
