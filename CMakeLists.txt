@@ -6,24 +6,26 @@ set(CMAKE_CXX_STANDARD 17)
 cmake_policy(SET CMP0148 NEW)
 cmake_policy(SET CMP0094 NEW)
 
+execute_process(COMMAND python -c "import site; print(site.getsitepackages()[0], end='')" OUTPUT_VARIABLE SITE)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 
 include_directories(OCCT/build/include/opencascade/)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    link_directories($ENV{SITE}/vtkmodules/.dylibs)
+    link_directories(${SITE}/vtkmodules/.dylibs)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    link_directories($ENV{SITE})
+    link_directories(${SITE})
 endif()
 
 # Find Python
 set(Python_EXECUTABLE $ENV{CONDA_PREFIX}/bin/python3)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
-# Find pybind11 package - be sure SITE is set to CONDA_PREFIX/.../site-packages
-set(pybind11_DIR $ENV{SITE}/pybind11/share/cmake/pybind11)
+# Find pybind11 package
+set(pybind11_DIR ${SITE}/pybind11/share/cmake/pybind11)
 find_package(pybind11 REQUIRED)
 
 # Add the pybind11 module

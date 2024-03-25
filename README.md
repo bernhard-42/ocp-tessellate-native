@@ -23,9 +23,6 @@ git submodule update --init --recursive
 mkdir -p build
 cd build/
 $CONDA_PREFIX/bin/cmake ..
-# make -j 8  # <== change to number of CPU cores available
-# ln -s mac64/clang/lib  # <= MacOS
-# ln -s lin64/gcc/lib    # <= Linux
 ```
 
 ## Build opc-addons
@@ -35,7 +32,6 @@ cd ../..
 mkdir -p build
 cd build/
 
-export SITE=$(python -c "import site; print(site.getsitepackages()[0])")
 $CONDA_PREFIX/bin/cmake ..
 make 
 ls -l ocp_tessellate*
