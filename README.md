@@ -1,6 +1,6 @@
 # Building ocp-addons
 
-## Create an Python
+## Create a Python environment
 
 ```bash
 mamba env create -f env.yml
