@@ -17,7 +17,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    link_directories(${SITE})
+    link_directories(${SITE}/cadquery_ocp.libs)
 endif()
 
 # Find Python
@@ -38,5 +38,5 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module  -l:OCP.cpython-311-x86_64-linux-gnu.so)
+    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKG3d-1cd4a50d.so.7.7.2 -l:libTKTopAlgo-ab298754.so.7.7.2 -l:libTKMesh-83dc7137.so.7.7.2)
 endif()

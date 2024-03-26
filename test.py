@@ -9,6 +9,8 @@ from build123d import *
 from OCP.BinTools import BinTools
 from OCP.TopoDS import TopoDS_Shape
 
+# sys.setdlopenflags(os.RTLD_GLOBAL | os.RTLD_LAZY)
+
 sys.path.append("build")
 
 import ocp_tessellate_native as tess
