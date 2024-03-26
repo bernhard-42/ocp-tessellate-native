@@ -39,5 +39,6 @@ endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     # target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKG3d-1cd4a50d.so.7.7.2 -l:libTKTopAlgo-ab298754.so.7.7.2 -l:libTKMesh-83dc7137.so.7.7.2)
+    # target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKMesh-b05eab93.so.7.7.1 -l:libTKG3d-fd76f2bd.so.7.7.1 -l:libTKTopAlgo-ab59b907.so.7.7.1)
     target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKG3d-547ec82e.so.7.7.0 -l:libTKMesh-471e8d86.so.7.7.0 -l:libTKTopAlgo-824b7516.so.7.7.0)
 endif()
