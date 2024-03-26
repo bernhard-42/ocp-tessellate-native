@@ -208,7 +208,7 @@ MeshData tessellate(TopoDS_Shape shape, double deflection, double angular_tolera
         long offset = -1;
         long triangle_count = 0;
 
-        long s = 0;
+        // long s = 0;
         for (int i = 0; i < num_faces; i++) {
             if (debug) std::cout << "face " << i << std::endl;
 
@@ -312,7 +312,7 @@ MeshData tessellate(TopoDS_Shape shape, double deflection, double angular_tolera
 
     EdgeData edge_list[num_edges];
 
-    int edges_offset = 0;
+    // int edges_offset = 0;
     for (int i=0; i<num_edges; i++) {
         const TopTools_ListOfShape& face_list = ancestor_map.FindFromIndex(i+1);
 
