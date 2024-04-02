@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 cmake_policy(SET CMP0148 NEW)
 cmake_policy(SET CMP0094 NEW)
 
+set(VERSION "7.7.2")
+
 execute_process(COMMAND python -c "import site; print(site.getsitepackages()[0], end='')" OUTPUT_VARIABLE SITE)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
@@ -14,11 +16,23 @@ include_directories(OCCT/build/include/opencascade/)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     link_directories(${SITE}/vtkmodules/.dylibs)
+    set(TKG3D "TKG3d") 
+    set(TKTOPALGO "TKTopAlgo") 
+    set(TKMESH "TKMesh")     
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(CMAKE_CXX_COMPILER "$ENV{CONDA_PREFIX}/bin/x86_64-conda-linux-gnu-g++")
+    
+    add_compile_options("-flto=auto")
+
     link_directories(${SITE}/cadquery_ocp.libs)
+    execute_process(COMMAND bash -c "readelf -d ${SITE}/OCP.cpython* > /tmp/readelf.output")
+    execute_process(COMMAND bash -c "grep -o \"libTKG3d-\[0-9a-fA-F\]\\+\.so\" /tmp/readelf.output" OUTPUT_VARIABLE TKG3D OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND bash -c "grep -o \"libTKTopAlgo-\[0-9a-fA-F\]\\+\.so\" /tmp/readelf.output" OUTPUT_VARIABLE TKTOPALGO OUTPUT_STRIP_TRAILING_WHITESPACE)
+    execute_process(COMMAND bash -c "grep -o \"libTKMesh-\[0-9a-fA-F\]\\+\.so\" /tmp/readelf.output" OUTPUT_VARIABLE TKMESH OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
+
 
 # Find Python
 set(Python_EXECUTABLE $ENV{CONDA_PREFIX}/bin/python3)
@@ -34,11 +48,9 @@ pybind11_add_module(ocp_tessellate_native src/tessellate.cpp)
 # Link against the Python libraries
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module  -lTKG3d.7.7.2 -lTKTopAlgo.7.7.2 -lTKMesh.7.7.2)
+    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module -l${TKG3D}.${VERSION} -l${TKTOPALGO}.${VERSION} -l${TKMESH}.${VERSION})
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    # target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKG3d-1cd4a50d.so.7.7.2 -l:libTKTopAlgo-ab298754.so.7.7.2 -l:libTKMesh-83dc7137.so.7.7.2)
-    # target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKMesh-b05eab93.so.7.7.1 -l:libTKG3d-fd76f2bd.so.7.7.1 -l:libTKTopAlgo-ab59b907.so.7.7.1)
-    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module   -l:libTKG3d-547ec82e.so.7.7.0 -l:libTKMesh-471e8d86.so.7.7.0 -l:libTKTopAlgo-824b7516.so.7.7.0)
+    target_link_libraries(ocp_tessellate_native PRIVATE pybind11::module -l:${TKG3D}.${VERSION} -l:${TKTOPALGO}.${VERSION} -l:${TKMESH}.${VERSION})
 endif()
