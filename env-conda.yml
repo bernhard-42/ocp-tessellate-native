@@ -1,0 +1,16 @@
+name: ocp-addons-c
+channels:
+  - conda-forge
+  - cadquery
+  - defaults
+dependencies:
+  - python=3.11
+  - gxx_linux-64==12*
+  - pybind11=2.11
+  - cmake=3.28
+  - build
+  - ocp==7.7.2
+  - cadquery
+  - numpy
+  - ipython
+

@@ -4,7 +4,7 @@ import os
 import sys
 import tempfile
 from time import time
-from build123d import *
+import cadquery as cq
 
 from OCP.BinTools import BinTools
 from OCP.TopoDS import TopoDS_Shape
@@ -77,7 +77,7 @@ if brep:
     with open(file, "rb") as f:
         obj = deserialize(f.read())
 else:
-    obj, acc, show = Box(1, 2, 3).wrapped, 0.002, True
+    obj, acc, show = cq.Workplane().box(1, 2, 3).val().wrapped, 0.002, True
 
 tt = time()
 
