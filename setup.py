@@ -5,7 +5,7 @@ import os, sys
 import os.path
 
 
-__version__ = "1.0.0"
+__version__ = "0.1.0"
 description="Addon packages for OCP"
 
 os.environ["CXX"] = "x86_64-conda-linux-gnu-g++"
@@ -18,7 +18,7 @@ ext_modules = [
             ("VERSION_INFO", __version__),
             ("DESCRIPTION", description),
         ],
-        include_dirs = ["src", os.path.join(sys.prefix, "include/opencascade")],
+        include_dirs = [os.path.join(sys.prefix, "include/opencascade")],
         libraries = ["TKG3d", "TKTopAlgo", "TKMesh"],
         cxx_std = 17
     ),
