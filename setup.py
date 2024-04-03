@@ -3,17 +3,18 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup
 import os, sys
 import os.path
-
+import platform
 
 __version__ = "0.1.0"
 description="Addon packages for OCP"
 
-os.environ["CXX"] = "x86_64-conda-linux-gnu-g++"
+if platform.system() == "Linux":
+    os.environ["CXX"] = "x86_64-conda-linux-gnu-g++"
 
 ext_modules = [
     Pybind11Extension(
         "ocp_tessellate_native",
-        ["src/tessellate.cpp"],
+        ["src/tessellator/tessellate.cpp"],
         define_macros=[
             ("VERSION_INFO", __version__),
             ("DESCRIPTION", description),
